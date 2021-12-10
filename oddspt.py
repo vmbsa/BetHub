@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 
 client = pymongo.MongoClient("mongodb://vasco:rootadmin@bethub-shard-00-00.24hpv.mongodb.net:27017,bethub-shard-00-01.24hpv.mongodb.net:27017,bethub-shard-00-02.24hpv.mongodb.net:27017/BetHub?ssl=true&replicaSet=atlas-14c0oo-shard-0&authSource=admin&retryWrites=true&w=majority")
-db = client.jogos
-db.jogos.delete_many({})
+db = client.BetHub
+db.games.delete_many({})
 
 
 def scroll_all_down():
@@ -33,7 +33,7 @@ def create_json_add_to_mongo(id, home, away, v1, x, v2, arbitrage):
     object['v2'] = v2
     object['percentage'] = arbitrage
     json_data = json.dumps(object)
-    db.jogos.insert_one(object)
+    db.games.insert_one(object)
 
 
 
