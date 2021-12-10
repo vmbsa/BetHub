@@ -10,39 +10,69 @@
 </head>
 
 
-<body>
+<body onload="startTime()">
+    <center> <h1>Upcoming matches</h1> </center>
+    <center> <h4 id="txt"></h4> </center>
+    <br>
 
-    <h2>Bethub</h2>
     <div class="container" id="app">
-                <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Home Team</th>
-              <th scope="col">Away Team</th>
-              <th scope="col">V1</th>
-              <th scope="col">Draw</th>
-              <th scope="col">V2</th>
-              <th scope="col">ARBITRAGE PERCENTAGE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% gamesList.forEach(game => { %>
+          <table id="sortTable" class="table table-hover">
+              <thead>
                 <tr>
-                    <td><%= game.game_id %></td>
-                    <td><%= game.home %></td>
-                    <td><%= game.away %></td>  
-                    <td><%= game.v1 %></td>
-                    <td><%= game.x %></td>
-                    <td><%= game.v2 %></td>
-                    <td><%= game.percentage %></td>
+                  <th scope="col">#</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Home Team</th>
+                  <th scope="col">Away Team</th>
+                  <th scope="col">V1</th>
+                  <th scope="col">Draw</th>
+                  <th scope="col">V2</th>
+                  <th scope="col">ARBITRAGE PERCENTAGE</th>
                 </tr>
+              </thead>
 
-            <%})%>
-            
-          </tbody>
+              <tbody>
+                <% gamesList.forEach(game => { %>
+                    <tr>
+                        <td><%= game.game_id %></td>
+                        <td><%= game.date %></td>
+                        <td><img src="<%= game.home_logo %>" width="26" height="26"> <%= game.home %></td>
+                        <td><img src="<%= game.away_logo %>" width="26" height="26"> <%= game.away %> </td>
+                        <td><%= game.v1 %></td>
+                        <td><%= game.x %></td>
+                        <td><%= game.v2 %></td>
+                        <% if(game.percentage < 1){ %>
+                           <td class="table-success"><%= game.percentage %></td>
+                        <% } if(game.percentage > 1 && game.percentage < 1.03){ %>
+                           <td class="table-warning"><%= game.percentage %></td>
+                        <% } if(game.percentage > 1.02){ %>
+                           <td class="table-danger"><%= game.percentage %></td>
+                        <% } %>
+                    </tr>
+                <%})%>
+
+              </tbody>
         </table>
+
     </div>
+
+<script>
+    function startTime() {
+      const today = new Date();
+      var date = today.getMonth() + 1+ "/" + today.getDate() + "/" + today.getFullYear();
+      let h = today.getHours();
+      let m = today.getMinutes();
+      let s = today.getSeconds();
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('txt').innerHTML = date + " - " + h + ":" + m + ":" + s;
+      setTimeout(startTime, 1000);
+    }
+
+    function checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+    }
+</script>
 
 </body>
 </html>

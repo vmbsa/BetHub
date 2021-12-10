@@ -9,8 +9,11 @@ mongoose.connect('mongodb+srv://vasco:rootadmin@bethub.24hpv.mongodb.net/BetHub?
 
 const gamesSchema = {
     game_id: String,
+    date: String,
     home: String,
+    home_logo: String,
     away: String,
+    away_logo: String,
     v1: String,
     x: String,
     v2: String,
