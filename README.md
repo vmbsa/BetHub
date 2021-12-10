@@ -1,3 +1,3 @@
 # BetHub
 
-BetHub - Arbitrage betting scanner
+BetHub - Arbitrage Betting Scanner
